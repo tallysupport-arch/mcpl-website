@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" role="img" aria-labelledby="title desc">
+<title id="title">Integrated technology solutions illustration</title><desc id="desc">Hardware, cloud, software and surveillance connected in one business system.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eaf2ff"/><stop offset="1" stop-color="#dcf6f1"/></linearGradient>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b4db8"/><stop offset="1" stop-color="#07377f"/></linearGradient>
+  <filter id="s"><feDropShadow dx="0" dy="15" stdDeviation="15" flood-color="#10213b" flood-opacity=".16"/></filter>
+</defs>
+<rect x="35" y="25" width="650" height="510" rx="42" fill="url(#bg)"/>
+<g filter="url(#s)"><rect x="178" y="118" width="364" height="250" rx="20" fill="#fff"/><rect x="198" y="138" width="324" height="188" rx="12" fill="url(#blue)"/><path d="M222 286l70-73 51 45 54-83 101 111z" fill="#54d2cf" opacity=".82"/><circle cx="263" cy="183" r="19" fill="#f7b32b"/><rect x="281" y="368" width="158" height="18" rx="9" fill="#aebdd2"/><rect x="244" y="386" width="232" height="19" rx="9" fill="#fff"/></g>
+<g filter="url(#s)"><rect x="63" y="292" width="150" height="174" rx="20" fill="#fff"/><rect x="84" y="318" width="108" height="66" rx="12" fill="#eaf2ff"/><path d="M110 348h56M110 365h38" stroke="#0b4db8" stroke-width="8" stroke-linecap="round"/><rect x="84" y="402" width="108" height="12" rx="6" fill="#dfe7f2"/><rect x="84" y="425" width="72" height="12" rx="6" fill="#dfe7f2"/></g>
+<g filter="url(#s)"><rect x="526" y="320" width="130" height="130" rx="26" fill="#fff"/><path d="M591 343c-28 0-50 18-50 41 0 19 15 35 36 40h42c16-4 28-17 28-33 0-18-16-33-36-33-5-9-11-15-20-15z" fill="#0f8b8d"/><path d="M578 390l13 13 26-28" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g filter="url(#s)"><rect x="84" y="78" width="126" height="100" rx="20" fill="#fff"/><circle cx="147" cy="126" r="26" fill="#0b4db8"/><path d="M137 126l8 8 17-19" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g filter="url(#s)"><rect x="531" y="70" width="125" height="110" rx="20" fill="#fff"/><path d="M554 98h79v51h-79z" fill="#071d3b"/><circle cx="593" cy="123" r="15" fill="#54d2cf"/><path d="M576 157h35" stroke="#aebdd2" stroke-width="8" stroke-linecap="round"/></g>
+<path d="M211 126h52M534 126h-38M139 178v112M591 181v137" stroke="#0b4db8" stroke-width="4" stroke-dasharray="10 10" opacity=".45"/>
+</svg>

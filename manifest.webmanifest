@@ -1,0 +1,11 @@
+{
+  "name": "Megha Compusoft Pvt. Ltd.",
+  "short_name": "MCPL",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b4db8",
+  "icons": [
+    { "src": "assets/images/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
