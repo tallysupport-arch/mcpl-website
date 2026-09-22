@@ -232,16 +232,31 @@ function setupCounters() {
 }
 
 function setupProductFilters() {
-  const buttons = document.querySelectorAll('[data-filter]');
-  const cards = document.querySelectorAll('[data-category]');
-  buttons.forEach(button => button.addEventListener('click', () => {
+  const buttons = [...document.querySelectorAll('[data-filter]')];
+  const cards = [...document.querySelectorAll('[data-category]')];
+  if (!buttons.length || !cards.length) return;
+
+  const applyFilter = filter => {
+    const validFilter = buttons.some(button => button.dataset.filter === filter) ? filter : 'all';
     buttons.forEach(item => item.classList.remove('active'));
-    button.classList.add('active');
-    const filter = button.dataset.filter;
+    buttons.find(button => button.dataset.filter === validFilter)?.classList.add('active');
     cards.forEach(card => {
-      card.hidden = filter !== 'all' && card.dataset.category !== filter;
+      card.hidden = validFilter !== 'all' && card.dataset.category !== validFilter;
     });
+  };
+
+  const applyHashFilter = () => {
+    const targetId = decodeURIComponent(location.hash.slice(1));
+    const targetCard = targetId ? document.getElementById(targetId) : null;
+    applyFilter(targetCard?.dataset.category || 'all');
+  };
+
+  buttons.forEach(button => button.addEventListener('click', () => {
+    applyFilter(button.dataset.filter);
   }));
+
+  applyHashFilter();
+  window.addEventListener('hashchange', applyHashFilter);
 }
 
 function setupBannerSlider() {
