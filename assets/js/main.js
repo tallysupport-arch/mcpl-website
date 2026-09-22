@@ -244,6 +244,36 @@ function setupProductFilters() {
   }));
 }
 
+function setupBannerSlider() {
+  const slider = document.querySelector('[data-banner-slider]');
+  if (!slider) return;
+  const slides = [...slider.querySelectorAll('.banner-slide')];
+  const dotsWrap = slider.querySelector('.banner-dots');
+  let current = 0;
+  let timer;
+  slides.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.className = `banner-dot${index === 0 ? ' active' : ''}`;
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Show banner ${index + 1}`);
+    dot.addEventListener('click', () => show(index, true));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = [...dotsWrap.children];
+  function show(index, restart = false) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+    if (restart) start();
+  }
+  function start() { clearInterval(timer); timer = setInterval(() => show(current + 1), 5500); }
+  slider.querySelector('.prev').addEventListener('click', () => show(current - 1, true));
+  slider.querySelector('.next').addEventListener('click', () => show(current + 1, true));
+  slider.addEventListener('mouseenter', () => clearInterval(timer));
+  slider.addEventListener('mouseleave', start);
+  start();
+}
+
 function init() {
   document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', headerMarkup());
   document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footerMarkup());
@@ -253,6 +283,7 @@ function init() {
   setupReveal();
   setupCounters();
   setupProductFilters();
+  setupBannerSlider();
 }
 
 document.addEventListener('DOMContentLoaded', init);
