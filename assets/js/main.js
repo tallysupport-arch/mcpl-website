@@ -124,8 +124,10 @@ function footerMarkup() {
         <span>Privacy Policy · Terms · Sitemap</span>
       </div>
     </footer>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <button class="back-to-top" type="button" aria-label="Back to top">↑</button>
     <div class="floating-actions" aria-label="Quick contact">
-      <a class="floating-btn whatsapp" href="https://wa.me/${COMPANY.phoneRaw}?text=Hello%20MCPL%2C%20I%20need%20help%20with%20an%20IT%20solution." target="_blank" rel="noopener" aria-label="WhatsApp">◉</a>
+      <a class="floating-btn whatsapp" href="https://wa.me/${COMPANY.phoneRaw}?text=${encodeURIComponent(`Hello MCPL, I am visiting the ${document.title} page and would like more information.`)}" target="_blank" rel="noopener" aria-label="WhatsApp MCPL">◉</a>
       <a class="floating-btn call" href="tel:${COMPANY.phoneRaw}" aria-label="Call MCPL">☎</a>
     </div>`;
 }
@@ -239,15 +241,28 @@ function setupProductFilters() {
   const buttons = [...document.querySelectorAll('[data-filter]')];
   const cards = [...document.querySelectorAll('[data-category]')];
   if (!buttons.length || !cards.length) return;
+  const search = document.querySelector('[data-product-search]');
+  const resultCount = document.querySelector('[data-product-count]');
+  const clearButton = document.querySelector('[data-clear-products]');
+  const emptyState = document.querySelector('[data-product-empty]');
+  let currentFilter = 'all';
 
   const applyFilter = filter => {
     const validFilter = buttons.some(button => button.dataset.filter === filter) ? filter : 'all';
+    currentFilter = validFilter;
     buttons.forEach(item => item.classList.remove('active'));
     buttons.find(button => button.dataset.filter === validFilter)?.classList.add('active');
+    const query = (search?.value || '').trim().toLowerCase();
+    let visible = 0;
     cards.forEach(card => {
       const categories = (card.dataset.category || '').split(/\s+/).filter(Boolean);
-      card.hidden = validFilter !== 'all' && !categories.includes(validFilter);
+      const categoryMatch = validFilter === 'all' || categories.includes(validFilter);
+      const textMatch = !query || card.textContent.toLowerCase().includes(query);
+      card.hidden = !(categoryMatch && textMatch);
+      if (!card.hidden) visible += 1;
     });
+    if (resultCount) resultCount.textContent = `${visible} solution${visible === 1 ? '' : 's'} found`;
+    if (emptyState) emptyState.hidden = visible !== 0;
   };
 
   const applyHashFilter = () => {
@@ -261,9 +276,65 @@ function setupProductFilters() {
   buttons.forEach(button => button.addEventListener('click', () => {
     applyFilter(button.dataset.filter);
   }));
+  search?.addEventListener('input', () => applyFilter(currentFilter));
+  clearButton?.addEventListener('click', () => {
+    if (search) search.value = '';
+    applyFilter('all');
+    search?.focus();
+  });
 
   applyHashFilter();
   window.addEventListener('hashchange', applyHashFilter);
+}
+
+function setupPageChrome() {
+  const anchorMap = {
+    'contact.html': ['contact-form'],
+    'support.html': ['support-ticket'],
+    'services.html': ['service-catalogue'],
+    'amc.html': ['amc-plans', 'amc-request']
+  };
+  const pageAnchors = anchorMap[currentPage()] || [];
+  document.querySelectorAll('main > .section').forEach((section, index) => {
+    if (pageAnchors[index]) section.id = pageAnchors[index];
+  });
+  const header = document.querySelector('.site-header');
+  const progress = document.querySelector('.scroll-progress span');
+  const backToTop = document.querySelector('.back-to-top');
+  const update = () => {
+    const top = window.scrollY;
+    header?.classList.toggle('is-scrolled', top > 24);
+    backToTop?.classList.toggle('visible', top > 500);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if (progress) progress.style.width = `${max > 0 ? Math.min(100, top / max * 100) : 0}%`;
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  backToTop?.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+  update();
+}
+
+function setupAccordions() {
+  document.querySelectorAll('.faq-item button').forEach(button => {
+    button.addEventListener('click', () => {
+      const item = button.closest('.faq-item');
+      const open = item.classList.toggle('open');
+      button.setAttribute('aria-expanded', String(open));
+    });
+  });
+}
+
+function setupContextualEnquiries() {
+  document.querySelectorAll('[data-enquiry-interest]').forEach(button => {
+    button.addEventListener('click', () => {
+      const modal = document.getElementById(button.dataset.openModal || 'enquiryModal');
+      const select = modal?.querySelector('[name="interest"]');
+      const requested = button.dataset.enquiryInterest;
+      if (select && requested) {
+        const option = [...select.options].find(item => item.text.toLowerCase().includes(requested.toLowerCase()));
+        if (option) select.value = option.value;
+      }
+    });
+  });
 }
 
 function setupBannerSlider() {
@@ -357,6 +428,9 @@ function init() {
   setupProductFilters();
   setupBannerSlider();
   setupProductShowcase();
+  setupPageChrome();
+  setupAccordions();
+  setupContextualEnquiries();
 }
 
 document.addEventListener('DOMContentLoaded', init);
