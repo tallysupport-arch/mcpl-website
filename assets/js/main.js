@@ -299,6 +299,56 @@ function setupBannerSlider() {
   start();
 }
 
+function setupProductShowcase() {
+  const showcase = document.querySelector('[data-product-showcase]');
+  if (!showcase) return;
+  const slides = [...showcase.querySelectorAll('.ps-slide')];
+  const dotsWrap = showcase.querySelector('.ps-dots');
+  const previous = showcase.querySelector('.ps-arrow.prev');
+  const next = showcase.querySelector('.ps-arrow.next');
+  if (!slides.length || !dotsWrap || !previous || !next) return;
+
+  let current = 0;
+  let timer;
+  slides.forEach((slide, index) => {
+    const dot = document.createElement('button');
+    dot.className = `ps-dot${index === 0 ? ' active' : ''}`;
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Show product or service ${index + 1}`);
+    dot.addEventListener('click', () => show(index, true));
+    dotsWrap.appendChild(dot);
+    slide.setAttribute('aria-hidden', index === 0 ? 'false' : 'true');
+  });
+  const dots = [...dotsWrap.children];
+
+  function show(index, restart = false) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === current);
+      slide.setAttribute('aria-hidden', i === current ? 'false' : 'true');
+    });
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+    if (restart) start();
+  }
+
+  function start() {
+    clearInterval(timer);
+    timer = setInterval(() => show(current + 1), 6500);
+  }
+
+  previous.addEventListener('click', () => show(current - 1, true));
+  next.addEventListener('click', () => show(current + 1, true));
+  showcase.addEventListener('mouseenter', () => clearInterval(timer));
+  showcase.addEventListener('mouseleave', start);
+  showcase.addEventListener('focusin', () => clearInterval(timer));
+  showcase.addEventListener('focusout', start);
+  showcase.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') show(current - 1, true);
+    if (event.key === 'ArrowRight') show(current + 1, true);
+  });
+  start();
+}
+
 function init() {
   document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', headerMarkup());
   document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footerMarkup());
@@ -309,6 +359,7 @@ function init() {
   setupCounters();
   setupProductFilters();
   setupBannerSlider();
+  setupProductShowcase();
 }
 
 document.addEventListener('DOMContentLoaded', init);
