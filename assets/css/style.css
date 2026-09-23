@@ -78,10 +78,16 @@ p { margin: 0 0 18px; }
   backdrop-filter: blur(16px);
 }
 .header-inner { min-height: 78px; display: flex; align-items: center; gap: 28px; }
-.brand { display: flex; align-items: center; gap: 12px; min-width: 250px; }
-.brand img { width: 48px; height: 48px; }
+.brand { position: relative; display: flex; align-items: center; min-width: 250px; overflow: hidden; isolation: isolate; }
+.brand-logo-full { width: 238px; height: 64px; object-fit: contain; object-position: left center; transform-origin: left center; transition: transform .25s ease, filter .25s ease; animation: brandLogoIn .75s cubic-bezier(.2,.8,.2,1) both; }
+.brand::after { content: ""; position: absolute; z-index: 2; inset: -20% auto -20% -45%; width: 34%; pointer-events: none; background: linear-gradient(100deg,transparent,rgba(255,255,255,.72),transparent); transform: skewX(-18deg) translateX(-220%); }
+.brand:hover .brand-logo-full { transform: translateY(-1px) scale(1.035); filter: drop-shadow(0 7px 12px rgba(8,43,99,.14)); }
+.brand:hover::after { animation: brandLogoShine .85s ease; }
+.brand:focus-visible { outline: 3px solid rgba(11,77,184,.25); outline-offset: 4px; border-radius: 8px; }
 .brand-copy strong { display: block; font-size: 1.05rem; line-height: 1.05; }
 .brand-copy span { color: var(--muted); font-size: .72rem; letter-spacing: .055em; }
+@keyframes brandLogoIn { from { opacity: 0; transform: translateX(-18px) scale(.96); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes brandLogoShine { from { transform: skewX(-18deg) translateX(-220%); } to { transform: skewX(-18deg) translateX(520%); } }
 .nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
 .nav-item { position: relative; }
 .nav-link {
@@ -186,7 +192,7 @@ p { margin: 0 0 18px; }
 .tally-screen-logo img { width: 100%; height: 100%; object-fit: contain; }
 @keyframes bannerReveal { to { opacity: 1; transform: translateY(0); } } @keyframes clickRipple { 0% { opacity: 1; transform: translate(-50%,-50%) scale(.2); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(5); } }
 @media (max-width: 620px) { .banner-slider { height: 560px; }.banner-slide { background-position: 68% center; }.banner-slide::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(2,18,35,.93),rgba(2,18,35,.62)); }.banner-copy { width: 88%; position: relative; z-index: 1; }.banner-copy h1, .banner-copy h2 { font-size: 2.25rem; }.banner-arrow { width: 38px; height: 38px; }.banner-arrow.prev { left: 8px; }.banner-arrow.next { right: 8px; }.tally-screen-logo { display: none; } }
-@media (prefers-reduced-motion: reduce) { .banner-slide, .banner-copy > * { transition: none !important; animation: none !important; opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .banner-slide, .banner-copy > *, .brand-logo-full, .brand::after { transition: none !important; animation: none !important; opacity: 1; transform: none; } }
 
 .logo-strip { padding: 26px 0; border-block: 1px solid var(--border); background: #fff; }
 .logo-strip-inner { display: grid; grid-template-columns: 1.4fr repeat(5, 1fr); gap: 20px; align-items: center; }
@@ -520,6 +526,7 @@ th { position: sticky; top: 0; background: var(--surface-2); color: #33445f; }
 @media (max-width: 1024px) {
   .header-actions .btn-outline { display: none; }
   .brand { min-width: auto; }
+  .brand-logo-full { width: 210px; height: 58px; }
   .hero-grid { gap: 24px; }
   .who-grid.mcpl-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -597,6 +604,7 @@ th { position: sticky; top: 0; background: var(--surface-2); color: #33445f; }
   .section { padding: 62px 0; }
   .topbar { display: none; }
   .brand-copy span { display: none; }
+  .brand-logo-full { width: 178px; height: 50px; }
   .hero { padding-top: 52px; }
   .client-strip { padding-block: 34px; }.client-logos { grid-template-columns: 1fr; }.client-logo { min-height: 116px; }.client-logo img { height: 62px; }
   .product-showcase { margin-top: 26px; }
