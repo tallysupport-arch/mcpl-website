@@ -67,8 +67,7 @@ function headerMarkup() {
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="index.html" aria-label="MCPL Home">
-          <img src="assets/images/logo.svg" alt="MCPL logo">
-          <span class="brand-copy"><strong>${COMPANY.name}</strong><span>${COMPANY.tagline}</span></span>
+          <img class="brand-logo-full" src="assets/images/mcpl-company-logo.jpeg" alt="MCPL — Megha Compusoft Pvt. Ltd.">
         </a>
         <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
         <nav class="nav" aria-label="Primary navigation">
