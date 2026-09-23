@@ -4,10 +4,9 @@ const COMPANY = {
   name: 'Megha Compusoft Pvt. Ltd.',
   shortName: 'MCPL',
   tagline: 'Software | Solution | Infrastructure | Surveillance',
-  phone1: '+91 93227 94646',
-  phone2: '+91 93227 94647',
-  phoneRaw: '919322794646',
-  email: 'tallysupport@mcplmail.com',
+  phone1: '+91 7666999332',
+  phoneRaw: '917666999332',
+  email: 'sales@mcplmail.com',
   website: 'www.mcplsoftware.com',
   address: '201, A-Wing, Shubham Centre CHS, Cardinal Gracious Road, Chakala, Andheri (E), Mumbai - 400099'
 };
@@ -54,17 +53,13 @@ function headerMarkup() {
   const active = target => page === target ? 'active' : '';
   const productPages = ['products.html','tally-prime-silver.html','tally-prime-gold.html','tally-prime-auditor.html','tally-ira.html','tss-single-user.html','tss-multi-user.html','tss-auditor-edition.html','amc.html'];
   const productsActive = productPages.includes(page) ? 'active' : '';
-  const isHomepage = page === 'index.html';
-  const topbarPhone = isHomepage ? '+91 7666999332' : COMPANY.phone1;
-  const topbarPhoneRaw = isHomepage ? '917666999332' : COMPANY.phoneRaw;
-  const topbarEmail = isHomepage ? 'sales@mcplmail.com' : COMPANY.email;
   return `
     <div class="topbar">
       <div class="container topbar-inner">
         <div class="topbar-links"><span>End-to-end IT solutions for growing businesses</span></div>
         <div class="topbar-links">
-          <a href="tel:${topbarPhoneRaw}">☎ ${topbarPhone}</a>
-          <a href="mailto:${topbarEmail}">✉ ${topbarEmail}</a>
+          <a href="tel:${COMPANY.phoneRaw}">☎ ${COMPANY.phone1}</a>
+          <a href="mailto:${COMPANY.email}">✉ ${COMPANY.email}</a>
         </div>
       </div>
     </div>
@@ -114,13 +109,12 @@ function footerMarkup() {
           <a href="services.html">Services</a>
           <a href="amc.html">AMC Plans</a>
           <a href="support.html">Raise Complaint</a>
-          <a href="mailto:${COMPANY.email}">Email Support</a>
+          <a href="mailto:${COMPANY.email}">Email Sales</a>
           <a href="contact.html">Talk to Expert</a>
         </div>
         <div class="footer-col">
           <h4>Contact</h4>
           <a href="tel:${COMPANY.phoneRaw}">${COMPANY.phone1}</a>
-          <a href="tel:919322794647">${COMPANY.phone2}</a>
           <a href="mailto:${COMPANY.email}">${COMPANY.email}</a>
           <a href="https://wa.me/${COMPANY.phoneRaw}" target="_blank" rel="noopener">WhatsApp</a>
         </div>
