@@ -313,6 +313,22 @@ p { margin: 0 0 18px; }
 
 .page-hero { padding: 72px 0; background: linear-gradient(135deg, #071d3b, #0b4db8 72%, #0f8b8d); color: #fff; }
 .page-hero .lead { color: rgba(255,255,255,.8); }
+.page-hero.page-hero-banner { position: relative; isolation: isolate; min-height: 390px; display: flex; align-items: center; overflow: hidden; background: #061a35; }
+.page-hero-banner-image { position: absolute; z-index: 0; top: 0; right: 0; width: 63%; height: 100%; object-fit: cover; object-position: center; transform: scale(1.01); animation: pageBannerZoom 12s ease-out both; }
+.page-hero.page-hero-banner::after { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, #061a35 0%, rgba(6,31,66,.98) 34%, rgba(6,31,66,.76) 55%, rgba(6,31,66,.18) 100%); pointer-events: none; }
+.page-hero-banner .container { position: relative; z-index: 2; width: 100%; }
+.page-hero-banner .page-hero-copy { max-width: 650px; }
+.page-hero-banner h1 { text-wrap: balance; }
+.page-hero-banner .lead { max-width: 610px; }
+@keyframes pageBannerZoom { from { transform: scale(1.07); } to { transform: scale(1.01); } }
+@media (max-width: 620px) {
+  .page-hero.page-hero-banner { min-height: 440px; padding: 58px 0; }
+  .page-hero-banner-image { width: 100%; opacity: .52; object-position: 62% center; }
+  .page-hero.page-hero-banner::after { background: linear-gradient(90deg,rgba(6,26,53,.96),rgba(6,31,66,.78)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-hero-banner-image { animation: none; transform: none; }
+}
 .breadcrumb { display: flex; gap: 8px; color: rgba(255,255,255,.68); margin-bottom: 18px; font-size: .9rem; }
 .breadcrumb a { color: #fff; }
 
