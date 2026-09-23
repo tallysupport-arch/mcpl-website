@@ -40,7 +40,7 @@ const productMenu = `
       <a href="products.html#cloud">Tally on Cloud</a>
       <a href="products.html#surveillance">CCTV & Surveillance</a>
       <a href="products.html#erp">ERP & Billing Solutions</a>
-      <a href="services.html#amc">AMC & Support</a>
+      <a href="amc.html">AMC</a>
     </div>
   </div>`;
 
@@ -52,7 +52,7 @@ function currentPage() {
 function headerMarkup() {
   const page = currentPage();
   const active = target => page === target ? 'active' : '';
-  const productPages = ['products.html','tally-prime-silver.html','tally-prime-gold.html','tally-prime-auditor.html','tally-ira.html','tss-single-user.html','tss-multi-user.html','tss-auditor-edition.html'];
+  const productPages = ['products.html','tally-prime-silver.html','tally-prime-gold.html','tally-prime-auditor.html','tally-ira.html','tss-single-user.html','tss-multi-user.html','tss-auditor-edition.html','amc.html'];
   const productsActive = productPages.includes(page) ? 'active' : '';
   return `
     <div class="topbar">
@@ -78,8 +78,6 @@ function headerMarkup() {
             <button class="nav-link ${productsActive}" type="button">Products & Services <span>⌄</span></button>
             <div class="mega-menu">${productMenu}</div>
           </div>
-          <div class="nav-item"><a class="nav-link ${active('amc.html')}" href="amc.html">AMC</a></div>
-          <div class="nav-item"><a class="nav-link ${active('support.html')}" href="support.html">Support</a></div>
           <div class="nav-item"><a class="nav-link ${active('contact.html')}" href="contact.html">Contact</a></div>
         </nav>
         <div class="header-actions">
