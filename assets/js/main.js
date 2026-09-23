@@ -54,13 +54,17 @@ function headerMarkup() {
   const active = target => page === target ? 'active' : '';
   const productPages = ['products.html','tally-prime-silver.html','tally-prime-gold.html','tally-prime-auditor.html','tally-ira.html','tss-single-user.html','tss-multi-user.html','tss-auditor-edition.html','amc.html'];
   const productsActive = productPages.includes(page) ? 'active' : '';
+  const isHomepage = page === 'index.html';
+  const topbarPhone = isHomepage ? '+91 7666999332' : COMPANY.phone1;
+  const topbarPhoneRaw = isHomepage ? '917666999332' : COMPANY.phoneRaw;
+  const topbarEmail = isHomepage ? 'sales@mcplmail.com' : COMPANY.email;
   return `
     <div class="topbar">
       <div class="container topbar-inner">
         <div class="topbar-links"><span>End-to-end IT solutions for growing businesses</span></div>
         <div class="topbar-links">
-          <a href="tel:${COMPANY.phoneRaw}">☎ ${COMPANY.phone1}</a>
-          <a href="mailto:${COMPANY.email}">✉ ${COMPANY.email}</a>
+          <a href="tel:${topbarPhoneRaw}">☎ ${topbarPhone}</a>
+          <a href="mailto:${topbarEmail}">✉ ${topbarEmail}</a>
         </div>
       </div>
     </div>
