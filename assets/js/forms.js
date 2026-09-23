@@ -1,7 +1,9 @@
 'use strict';
 
-const FORM_EMAIL = 'tallysupport@mcplmail.com';
-const FORM_ENDPOINT = `https://formsubmit.co/ajax/${FORM_EMAIL}`;
+const FORM_EMAILS = {
+  sales: 'sales@mcplmail.com',
+  support: 'tallysupport@mcplmail.com'
+};
 
 function createReference(prefix) {
   const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
@@ -32,6 +34,14 @@ document.addEventListener('submit', async event => {
   const isTicket = endpoint.includes('complaints');
   const isAmc = endpoint.includes('amc');
 
+  // Support tickets go to the support team. All product, service, AMC and
+  // general enquiries go to the sales team.
+  const recipientEmail = isTicket
+    ? FORM_EMAILS.support
+    : FORM_EMAILS.sales;
+
+  const formEndpoint = `https://formsubmit.co/ajax/${recipientEmail}`;
+
   const reference = createReference(
     isTicket ? 'TKT' : isAmc ? 'AMC' : 'ENQ'
   );
@@ -57,7 +67,7 @@ document.addEventListener('submit', async event => {
     button.disabled = true;
     button.textContent = 'Sending...';
 
-    const response = await fetch(FORM_ENDPOINT, {
+    const response = await fetch(formEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,7 +91,7 @@ document.addEventListener('submit', async event => {
     showMessage(
       form,
       'error',
-      'Unable to submit the form. Please call +91 93227 94646 or email tallysupport@mcplmail.com.'
+      `Unable to submit the form. Please call +91 93227 94646 or email ${recipientEmail}.`
     );
   } finally {
     button.disabled = false;
