@@ -16,10 +16,17 @@ const productMenu = `
   <div class="mega-grid">
     <div class="mega-col">
       <h4>Business Software</h4>
-      <a href="products.html#tally">TallyPrime</a>
-      <a href="products.html#tally-server">TallyPrime Server</a>
-      <a href="products.html#cloud">Tally on Cloud</a>
-      <a href="products.html#erp">ERP & Billing Solutions</a>
+      <span class="mega-subtitle">Buy TallyPrime License</span>
+      <a href="tally-prime-gold.html">TallyPrime Gold</a>
+      <a href="tally-prime-silver.html">TallyPrime Silver</a>
+      <a href="tally-prime-auditor.html">TallyPrime Auditor</a>
+    </div>
+    <div class="mega-col">
+      <h4>Tally Software Services (TSS)</h4>
+      <a href="tss-single-user.html">TSS Single User</a>
+      <a href="tss-multi-user.html">TSS Multi User</a>
+      <a href="tss-auditor-edition.html">TSS Auditor Edition</a>
+      <a href="tally-ira.html">Docs by Ira</a>
     </div>
     <div class="mega-col">
       <h4>IT Infrastructure</h4>
@@ -29,11 +36,11 @@ const productMenu = `
       <a href="products.html#power">UPS & Power Backup</a>
     </div>
     <div class="mega-col">
-      <h4>Security & Services</h4>
+      <h4>Cloud, Security & Services</h4>
+      <a href="products.html#cloud">Tally on Cloud</a>
       <a href="products.html#surveillance">CCTV & Surveillance</a>
+      <a href="products.html#erp">ERP & Billing Solutions</a>
       <a href="services.html#amc">AMC & Support</a>
-      <a href="services.html#fms">Facility Management</a>
-      <a href="services.html#custom">Custom Development</a>
     </div>
   </div>`;
 
@@ -45,6 +52,8 @@ function currentPage() {
 function headerMarkup() {
   const page = currentPage();
   const active = target => page === target ? 'active' : '';
+  const productPages = ['products.html','tally-prime-silver.html','tally-prime-gold.html','tally-prime-auditor.html','tally-ira.html','tss-single-user.html','tss-multi-user.html','tss-auditor-edition.html'];
+  const productsActive = productPages.includes(page) ? 'active' : '';
   return `
     <div class="topbar">
       <div class="container topbar-inner">
@@ -66,7 +75,7 @@ function headerMarkup() {
           <div class="nav-item"><a class="nav-link ${active('index.html')}" href="index.html">Home</a></div>
           <div class="nav-item"><a class="nav-link ${active('about.html')}" href="about.html">About</a></div>
           <div class="nav-item has-mega">
-            <button class="nav-link ${active('products.html')}" type="button">Products & Services <span>⌄</span></button>
+            <button class="nav-link ${productsActive}" type="button">Products & Services <span>⌄</span></button>
             <div class="mega-menu">${productMenu}</div>
           </div>
           <div class="nav-item"><a class="nav-link ${active('amc.html')}" href="amc.html">AMC</a></div>
@@ -93,7 +102,7 @@ function footerMarkup() {
         </div>
         <div class="footer-col">
           <h4>Solutions</h4>
-          <a href="products.html#tally">TallyPrime</a>
+          <a href="tally-prime-silver.html">TallyPrime Silver</a>
           <a href="products.html#computing">Hardware</a>
           <a href="products.html#networking">Networking</a>
           <a href="products.html#surveillance">Surveillance</a>
@@ -241,14 +250,17 @@ function setupProductFilters() {
     buttons.forEach(item => item.classList.remove('active'));
     buttons.find(button => button.dataset.filter === validFilter)?.classList.add('active');
     cards.forEach(card => {
-      card.hidden = validFilter !== 'all' && card.dataset.category !== validFilter;
+      const categories = (card.dataset.category || '').split(/\s+/).filter(Boolean);
+      card.hidden = validFilter !== 'all' && !categories.includes(validFilter);
     });
   };
 
   const applyHashFilter = () => {
     const targetId = decodeURIComponent(location.hash.slice(1));
     const targetCard = targetId ? document.getElementById(targetId) : null;
-    applyFilter(targetCard?.dataset.category || 'all');
+    const categories = (targetCard?.dataset.category || '').split(/\s+/).filter(Boolean);
+    const hashFilter = categories.find(category => buttons.some(button => button.dataset.filter === category));
+    applyFilter(hashFilter || 'all');
   };
 
   buttons.forEach(button => button.addEventListener('click', () => {
