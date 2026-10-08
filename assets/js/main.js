@@ -12,36 +12,7 @@ const COMPANY = {
 };
 
 const productMenu = `
-  <div class="mega-grid">
-    <div class="mega-col">
-      <h4>Business Software</h4>
-      <span class="mega-subtitle">Buy TallyPrime License</span>
-      <a href="tally-prime-gold.html">TallyPrime Gold</a>
-      <a href="tally-prime-silver.html">TallyPrime Silver</a>
-      <a href="tally-prime-auditor.html">TallyPrime Auditor</a>
-    </div>
-    <div class="mega-col">
-      <h4>Tally Software Services (TSS)</h4>
-      <a href="tss-single-user.html">TSS Single User</a>
-      <a href="tss-multi-user.html">TSS Multi User</a>
-      <a href="tss-auditor-edition.html">TSS Auditor Edition</a>
-      <a href="tally-ira.html">Docs by Ira</a>
-    </div>
-    <div class="mega-col">
-      <h4>IT Infrastructure</h4>
-      <a href="products.html#computing">Desktops & Laptops</a>
-      <a href="products.html#servers">Servers & Storage</a>
-      <a href="products.html#networking">Networking & Firewall</a>
-      <a href="products.html#power">UPS & Power Backup</a>
-    </div>
-    <div class="mega-col">
-      <h4>Cloud, Security & Services</h4>
-      <a href="products.html#cloud">Tally on Cloud</a>
-      <a href="products.html#surveillance">CCTV & Surveillance</a>
-      <a href="products.html#erp">ERP & Billing Solutions</a>
-      <a href="amc.html">AMC</a>
-    </div>
-  </div>`;
+<div class="mega-grid"><div class="mega-col"><h4>Tally Software</h4><a href="products.html#tally-prime-silver">TallyPrime Silver</a><a href="products.html#tally-prime-gold">TallyPrime Gold</a><a href="products.html#tally-prime-server">TallyPrime Server</a><a href="products.html#tss-single-user">Tally TSS</a><a href="products.html#tally-whatsapp">Tally WhatsApp</a><a href="products.html#tally-other">Others</a></div><div class="mega-col"><h4>Tally Support Service</h4><a href="products.html#tally-amc-support">Tally AMC Support</a><a href="products.html#tally-module-development">Tally Advanced Module Development</a><a href="products.html#tally-integration">Tally-based Integration Solution</a><a href="products.html#vertical-solutions">Business Vertical-based Solution</a><a href="products.html#tally-mobile">Tally on Mobile</a><a href="products.html#tally-support-other">Other</a></div><div class="mega-col"><h4>Software</h4><a href="products.html#erp">ERP Applications — Udyog / SAP / ERP</a><a href="products.html#ai-applications">AI-based Applications — Pucho</a><a href="products.html#payroll">Payroll Application — greytHR</a><a href="products.html#mobile-attendance">Mobile-based Attendance Software</a><a href="products.html#service-delivery">Mobile-based Service Delivery Management</a><a href="products.html#software-other">Other</a></div><div class="mega-col"><h4>Infrastructure Products & Services</h4><a href="products.html#cloud-server">Cloud Server</a><a href="products.html#email-domain">Email &amp; Domain Name Services</a><a href="products.html#networking">Networking</a><a href="products.html#cyber-security">Cyber Security Services</a><a href="products.html#fms-manpower">FMS-based Manpower Services</a><a href="products.html#infrastructure-other">Others</a></div><div class="mega-col"><h4>CCTV Surveillance</h4><a href="products.html#surveillance">CCTV Devices</a><a href="products.html#biometric-attendance">Biometric Access</a><a href="products.html#access-control">Door Access Control</a><a href="products.html#lift-cctv">Moving Lift-based CCTV</a><a href="products.html#surveillance-other">Other</a></div></div>`;
 
 function currentPage() {
   const file = location.pathname.split('/').pop() || 'index.html';
