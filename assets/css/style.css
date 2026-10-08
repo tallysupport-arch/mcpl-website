@@ -720,3 +720,6 @@ th { position: sticky; top: 0; background: var(--surface-2); color: #33445f; }
 @media (max-width: 980px) { .industry-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.testimonial-layout { grid-template-columns:1fr; gap:34px; } }
 @media (max-width: 620px) { .page-hero-actions { flex-direction:column; align-items:stretch; }.catalogue-toolbar,.catalogue-status { align-items:stretch; flex-direction:column; }.catalogue-search { max-width:none; }.industry-grid { grid-template-columns:1fr; }.industry-card { min-height:240px; }.back-to-top { right:18px; bottom:172px; }.nav-link::after { display:none; } }
 @media (prefers-reduced-motion: reduce) { .page-hero-copy > * { animation:none; } }
+
+/* Separate columns for the five requested categories; other page layouts unchanged. */
+@media (min-width: 861px) { .mega-menu { width: min(1120px, 96vw); right: -230px; max-height: calc(100vh - 140px); overflow-y: auto; } .mega-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; } .mega-col a { font-size: .82rem; overflow-wrap: anywhere; } }
